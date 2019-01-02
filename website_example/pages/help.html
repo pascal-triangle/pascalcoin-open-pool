@@ -1,0 +1,251 @@
+<!-- Connection Details -->
+<div class="row">
+  <div class="col-md-6">
+
+    <h3>
+      <span tkey="connectionDetails">Connection Details</span>
+    </h3>
+    <div class="card px-3 py-2 mb-3">
+      <p>
+        <i class="fa fa-cloud"></i>
+        <span tkey="miningPoolHost">Mining Pool Address</span>:
+        <span id="miningPoolHost"></span>
+      </p>
+      <p>
+        <i class="fa fa-cubes"></i>
+        <span tkey="algorithm">Algorithm</span>:
+        <span id="algorithm"></span>
+      </p>
+    </div>
+
+    <h3>
+      <span tkey="username">Username<span>
+    </h3>
+    <div class="card px-3 py-2 mb-3">
+      <p>
+        <i class="fa fa-key"></i>
+        <span tkey="localWallet">Mining to a local wallet</span>:
+        <code>ACCOUNT.0.WORKER/EMAIL</code>
+      </p>
+      <p>
+        <i class="fa fa-exchange"></i>
+        <span tkey="exchangeWallet">Mining to exchange wallet</span>:
+        <code>ACCOUNT.PAYMENT_ID.WORKER/EMAIL</code>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Mining ports -->
+  <div class="col-md-6 mb-3">
+    <h3><span tkey="miningPorts">Mining Ports</span></h3>
+    <div class="card">
+      <div id="miningPorts" class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th class="col1"><span tkey="port">Port</span></th>
+              <th class="col2"><span tkey="portDiff">Starting Difficulty</span></th>
+              <th class="col3"><span tkey="description">Description</span></th>
+              <th class="col4"><span tkey="users">Users</span></th>
+            </tr>
+          </thead>
+          <tbody id="miningPorts_rows">
+            <tr>
+              <td class="col1"><span class="miningPort"></span></td>
+              <td class="col2"><span class="miningPortDiff"></span></td>
+              <td class="col3"><span class="miningPortDesc"></span></td>
+              <td class="col4"><span class="miningPortUsers"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Configuration Generator -->
+<h3><span tkey="configGenerator">Configuration Generator</span></h3>
+
+<!-- Configuration Generator -->
+<div class="card p-3">
+  <p><span tkey="configGeneratorDesc">Generate your custom configuration to mine on our pool</span></p>
+
+  <div id="configGenerator" class="form-row mt-3">
+
+    <div class="form-group col-12">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-link"></i>
+          </div>
+        </div>
+        <select class="form-control" id="gMiningPort"></select>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-key"></i>
+          </div>
+        </div>
+        <input class="form-control" id="gAccount" type="text" tplaceholder="accountField" placeholder="Account" required="required" />
+      </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-exchange"></i>
+          </div>
+        </div>
+        <input class="form-control" id="gPaymentID" type="text" tplaceholder="paymentIdField" placeholder="Payment ID for exchanges (optional)" />
+      </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-server"></i>
+          </div>
+        </div>
+        <input class="form-control" id="gWorkerName" tplaceholder="workerNameField" type="text" placeholder="Worker Name" />
+      </div>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-12">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-at"></i>
+          </div>
+        </div>
+        <input class="form-control" id="gEmail" tplaceholder="emailField" type="text" placeholder="Email" />
+      </div>
+    </div>
+
+    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-secondary" data-toggle="collapse" />
+    </div>
+
+    <div class="form-group col-lg-9 col-md-8 col-sm-6 col-xs-12">
+      <div class="form-check form-check-inline" style="height:100%">
+        <input class="form-check-input" type="radio" name="gPlatform" value="Windows" id="gWindows" checked>
+        <label class="form-check-label" for="gWindows">Windows</label>
+      </div>
+      <div class="form-check form-check-inline" style="height:100%">
+        <input class="form-check-input" type="radio" name="gPlatform" value="Linux" id="gLinux">
+        <label class="form-check-label" for="gLinux">Linux</label>
+      </div>
+    </div>
+
+  </div>
+
+  <h5>Example configuration</h5>
+  <p>
+    <code id="gWindowsConfig">
+      :start<br/>
+      &nbsp;&nbsp;REM Mining on <span class="exampleHost">POOL_HOST</span> with four CPU thread<br/>
+      &nbsp;&nbsp;rhminer.exe -r 20 -s stratum+tcp://<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -su <span class="exampleLogin">ACCOUNT.0.WORKER/EMAIL</span> -cpu -cputhreads 4<br/>
+      goto start
+    </code>
+    <code id="gLinuxConfig" style="display:none">
+      #!/bin/bash<br/>
+      while true<br/>
+      do<br/>
+      &nbsp;&nbsp;echo Mining on <span class="exampleHost">POOL_HOST</span> with four CPU thread<br/>
+      &nbsp;&nbsp;./rhminer -r 20 -s <span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -su <span class="exampleLogin">ACCOUNT.0.WORKER/EMAIL</span> -cpu -cputhreads 4<br/>
+      done
+    </code>
+  </p>
+
+
+</div>
+
+
+<!-- Javascript -->
+<script>
+
+var lastPortsJson = "";
+var $miningPorts = $("#miningPorts_rows");
+var miningPortTemplate = $miningPorts.html();
+$miningPorts.empty();
+
+var $miningPortSelect = $("#gMiningPort");
+$miningPortSelect.empty();
+
+// Update current page
+currentPage = {
+    destroy: function(){
+    },
+    update: function(){
+        var portsJson = JSON.stringify(lastStats.config.ports);
+        console.log(lastStats.config.ports);
+        if (lastPortsJson !== portsJson) {
+            lastPortsJson = portsJson;
+            var $miningPortChildren = [];
+	    var $miningPortOptions = [];
+            for (var i = 0; i < lastStats.config.ports.length; i++) {
+                var portData = lastStats.config.ports[i];
+                var $portChild = $(miningPortTemplate);
+                $portChild.find(".miningPort").text(portData.port);
+                $portChild.find(".miningPortDiff").text(portData.diff.toFixed(9));
+                $portChild.find(".miningPortDesc").text(portData.desc);
+                $portChild.find(".miningPortUsers").text(portData.users || 0);
+                $miningPortChildren.push($portChild);
+		$miningPortOptions.push('<option value="'+portData.port+'">'+portData.port+' &ndash; '+portData.desc+'</option>');
+            }
+            $miningPorts.empty().append($miningPortChildren);
+            $miningPortSelect.empty().append($miningPortOptions);
+            updateTextClasses("examplePort", lastStats.config.ports[0].port.toString());
+        }
+
+        updateText("miningPoolHost", getPoolHost());
+        updateTextClasses("exampleHost", getPoolHost());
+
+        var coin = lastStats.config.coin.toLowerCase() || null;
+        var algorithm = lastStats.config.algorithm;
+
+        updateText("algorithm", algorithm);
+
+    }
+};
+
+/**
+ * Configuration generator
+ **/
+
+$("#generateConf").click(function() {
+    // Mining Port
+    var port = $("#gMiningPort").val();
+    updateTextClasses("examplePort", port);
+
+    // Username
+    var account = $("#gAccount").val().replace(/\s+/g, "").trim();
+    var paymentID = $("#gPaymentID").val().replace(/\s+/g, "").trim();
+    var workerName = $("#gWorkerName").val().replace(/\s+/g, "").trim();
+    var email = $("#gEmail").val().replace(/\s+/g, "").trim();
+
+    var login = (account ? account : "YOUR_ACCOUNT") + "." + (paymentID ? paymentID : "0");
+    if (workerName) login += "." + workerName;
+    if (email) login += "/" + email;
+
+    updateTextClasses("exampleLogin", login);
+
+    var platform = $("input[name=gPlatform]:checked").val();
+    console.log(platform);
+    if (platform == "Windows") {
+        $("#gWindowsConfig").show();
+        $("#gLinuxConfig").hide();
+    } else {
+        $("#gWindowsConfig").hide();
+        $("#gLinuxConfig").show();
+    }
+
+});
+</script>

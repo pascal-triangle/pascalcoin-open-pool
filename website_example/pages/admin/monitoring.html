@@ -1,0 +1,127 @@
+<!-- Handlebars template -->
+<script id="monitoringInfo" type="text/x-handlebars-template">
+  <div class="tab-pane active" id="rpcLog">
+    <h3>Daemon</h3>
+    <div class="card p-3">
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <strong>Last check:</strong> {{monitoring.lastCheck}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div>
+            <strong>Last status:</strong>
+            <span id="daemonStatus">{{monitoring.lastStatus}}</span>
+          </div>
+          <div>
+            <strong>Last response:</strong>
+            <code>{{monitoring.lastResponse}}</code>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div>
+            <strong>Last fail:</strong>
+            <span>{{monitoring.lastFail}}</span>
+          </div>
+          <div>
+            <strong>Last fail response:</strong>
+            <code>{{monitoring.lastFailResponse}}</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="mt-3">Logs</h3>
+
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped logList" id="logTable">
+          <thead>
+            <tr>
+              <th class="sort">Name <i class="fa fa-sort"></i></th>
+              <th class="sort">Modified <i class="fa fa-sort"></i></th>
+              <th class="sort">Size <i class="fa fa-sort"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each logs}}
+            <tr>
+              <td data-sort="{{@key}}"><a href="{{this.link}}" target="_blank">{{@key}}</a></td>
+              <td data-sort="{{this.changed}}">{{this.changed}}</td>
+              <td data-sort="{{this.size}}">{{this.size}} bytes</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Tab panes -->
+<div class="adminMonitor">
+  <div class="tab-content">
+    <div id="monitoringInfoView"></div>
+  </div>
+</div>
+
+<!-- Javascript -->
+<script>
+function getCheckTime(timestamp) {
+    return timestamp ? $.timeago(new Date(timestamp * 1000).toISOString()) : null;
+}
+
+function monitoringInfoParse(data) {
+    var monitoring = {
+        lastCheck: getCheckTime(data.monitoring.lastCheck) || 'never',
+        lastStatus: data.monitoring.lastStatus || '',
+        lastFail: getCheckTime(data.monitoring.lastFail) || 'never',
+        lastFailResponse: data.monitoring.lastFailResponse || ' ',
+        lastResponse: data.monitoring.lastResponse || ' '
+    };
+
+    var properData = {};
+    if(data.hasOwnProperty('logs')) {
+        properData['logs'] = data['logs'];
+        for(var log in data['logs']) {
+            data['logs'][log].changed = formatDate(data['logs'][log].changed);
+            data['logs'][log].link = api + '/admin_log?file=' + log + '&password=' + docCookies.getItem('password');
+        }
+    }
+    properData['monitoring'] = monitoring;
+
+    return properData;
+}
+
+function renderLogInfo(promptPassword) {
+    var password = docCookies.getItem('password');
+
+    if(!password || promptPassword) {
+        password = prompt('Enter admin password');
+    }
+
+    $.ajax({
+        url: api + '/admin_monitoring',
+        data: {password: password},
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+            docCookies.setItem('password', password, Infinity);
+            renderTemplate(monitoringInfoParse(data), '#monitoringInfo', '#monitoringInfoView');
+
+            $('#daemonStatus').addClass(data['monitoring'].daemon.lastStatus == 'ok' ? 'text-success' : 'text-danger');
+            $('#walletStatus').addClass(data['monitoring'].wallet.lastStatus == 'ok' ? 'text-success' : 'text-danger');
+
+            $('#logTable th.sort').on('click', sortTable);
+        },
+        error: function(e) {
+            docCookies.removeItem('password');
+        }
+    });
+}
+
+$(function() {
+    renderLogInfo();
+});
+</script>

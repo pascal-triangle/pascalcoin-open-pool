@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+
+    <title>PascalCoin Mining Pool</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.3/jquery.timeago.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link href="themes/default.css" rel="stylesheet">
+    <link href="themes/custom.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="navbar-container">
+      <div class="container">
+
+        <nav class="navbar navbar-light navbar-expand-lg">
+
+          <a class="navbar-brand hot_link" data-page="home.html" href="#">
+            <span>pasc.freepool.xyz</span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link hot_link" data-page="home.html" href="#">
+                  <span tkey="home">Home</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link hot_link" data-page="stats.html" href="#stats">
+                  <span tkey="stats">Stats</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link hot_link" data-page="blocks.html" href="#blocks">
+                  <span tkey="blocks">Blocks</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link hot_link" data-page="payments.html" href="#payments">
+                  <span tkey="payments">Payments</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link hot_link" data-page="help.html" href="#help">
+                  <span tkey="help">Help</span>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Links
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" target="_blank" href="https://pascalcoin.org">
+                    <span>PascalCoin.org</span>
+                  </a>
+                  <a class="dropdown-item" target="_blank" href="http://explorer.pascalcoin.org/">
+                    <span>Block Explorer</span>
+                  </a>
+                  <a class="dropdown-item" target="_blank" href="https://freepasa.org/">
+                    <span>Free PASA</span>
+                  </a>
+                  <a class="dropdown-item" target="_blank" href="https://discord.gg/sJqcgtD">
+                    <span>Discord Chat</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+
+            <div id="accountSearch" class="form-inline mt-2 mt-md-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Account or Payment ID" aria-label="Search">
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </div>
+
+          </div>
+        </nav>
+
+      </div>
+    </div>
+
+
+    <div class="subnavbar-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-4 text-left">
+            <span tkey="network">Network</span>:
+            <span id="g_networkHashrate"><span tkey="na">N/A</span></span>
+          </div>
+          <div class="col-4 text-center">
+            <span tkey="pool">Pool</span>:
+            <span id="g_poolHashrate"><span tkey="na">N/A</span></span>
+          </div>
+          <div class="col-4 text-right">
+            <span tkey="you">You</span>:
+            <span id="g_userHashrate"><span tkey="na">N/A</span></span>
+            <a id="g_userLink" href="#account">
+              (<span tkey="yourDetails">Details</span>)
+            </a>
+            <a class="hot_link d-none" data-page="account.html" href="#account"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container">
+      <div id="page-wrapper">
+        <div id="page"></div>
+        <p id="loading" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i></p>
+      </div>
+    </div>
+
+    <footer class="navbar fixed-bottom">
+      <div class="container text-center">
+        <span>PascalCoin Open Source Mining Pool v<span id="poolVersion"></span></span>
+        <span id="statsUpdated"><span tkey="statsUpdated">Stats Updated</span> &nbsp;<i class="fa fa-bolt"></i></span>
+      </div>
+    </footer>
+
+
+
+    <!-- Javascript -->
+    <script src="config.js"></script>
+    <script src="lang/languages.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+
+jQuery.timeago.settings.localeTitle = true;
+
+// Store last pool statistics
+var lastStats;
+
+// Get current miner address
+function getMyAccount() {
+    return docCookies.getItem("mining_account");
+}
+
+// Pulse live update
+function pulseLiveUpdate(){
+    var stats_update = document.getElementById("statsUpdated");
+    stats_update.style.transition = "opacity 100ms ease-out";
+    stats_update.style.opacity = 1;
+    setTimeout(function(){
+        stats_update.style.transition = "opacity 7000ms linear";
+        stats_update.style.opacity = 0;
+    }, 500);
+}
+
+// Update live informations
+function updateLiveStats(data) {
+    pulseLiveUpdate();
+    lastStats = data;
+    if (lastStats && lastStats.pool && lastStats.pool.totalMinersPaid.toString() == "-1"){
+        lastStats.pool.totalMinersPaid = 0;
+    }
+    updateIndex();
+    if (currentPage) currentPage.update();
+}
+
+// Update global informations
+function updateIndex(){
+    updateText("coinSymbol", lastStats.config.symbol);
+    updateText("g_networkHashrate", getReadableHashRateString(lastStats.network.hashrate) + "/s");
+    updateText("g_poolHashrate", getReadableHashRateString(lastStats.pool.hashrate) + "/s");
+    if (lastStats.miner && lastStats.miner.hashrate){
+        updateText("g_userHashrate", getReadableHashRateString(lastStats.miner.hashrate) + "/s");
+    } else {
+        updateText("g_userHashrate", "N/A");
+    }
+    var myAccount = getMyAccount();
+    if(myAccount) {
+        $("#g_userLink").attr("href", "#account/"+myAccount);
+    } else {
+        $("#g_userLink").attr("href", "#account");
+    }
+
+    updateText("poolVersion", lastStats.config.version);
+}
+
+// Load live statistics
+function loadLiveStats(reload) {
+    var apiURL = api + "/stats";
+
+    var account = getMyAccount();
+    if (account) { apiURL = apiURL + "?address=" + encodeURIComponent(account); }
+
+    if (xhrLiveStats) xhrLiveStats.abort();
+
+    $.get(apiURL, function(data){
+        updateLiveStats(data);
+        if (!reload) routePage(fetchLiveStats);
+    });
+}
+
+// Fetch live statistics
+var xhrLiveStats;
+function fetchLiveStats() {
+    var apiURL = api + "/live_stats";
+
+    var account = getMyAccount();
+    if (account) { apiURL = apiURL + "?address=" + encodeURIComponent(account); }
+
+    xhrLiveStats = $.ajax({
+        url: apiURL,
+        dataType: "json",
+        cache: "false"
+    }).done(function(data){
+        updateLiveStats(data);
+    }).always(function(){
+        fetchLiveStats();
+    });
+}
+
+// Initialize
+$(function(){
+    // Load current theme if not default
+    if (themeCss && themeCss != "themes/default.css") {
+        $("head").append("<link rel=\"stylesheet\" href=\"" + themeCss + "\">");
+    }
+
+    // Load live statistics for the first time
+    loadLiveStats();
+
+    $("#accountSearch button").click(function() {
+        var account = $("#accountSearch input").val();
+        var loc = "#account";
+        if(account) loc += "/"+account;
+        window.location.hash = loc;
+    });
+
+    $("#accountSearch input").keyup(function(e){
+        if(e.keyCode === 13)
+            $("#accountSearch button").click();
+    });
+
+
+});
+    </script>
+
+  </body>
+</html>

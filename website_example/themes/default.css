@@ -1,0 +1,236 @@
+body {
+    font-size: 14px;
+}
+
+::-moz-selection {
+    background: #f8a84d;
+    color: black;
+}
+::selection {
+    background: #f8a84d;
+    color: black;
+}
+
+a {
+    color: #c47b22;
+}
+a:hover,
+a:active,
+a:focus {
+    color: #b3701f;
+}
+
+#page-wrapper {
+    margin: 30px 0 100px;
+}
+
+h1,h2,h3,h4,h5,h6 { font-weight: 400; }
+
+/* NAVBAR */
+
+.container {
+    max-width: 1140px;
+}
+
+.navbar-container {
+    background: #f8a84d;
+    border-bottom: 1px solid #c47b22;
+}
+.navbar {
+    padding: 0;
+}
+
+.navbar-brand {
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #222;
+}
+
+.navbar .navbar-nav .nav-link {
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    padding-top: 0;
+    padding-right: 15px;
+    padding-bottom: 0;
+    padding-left: 15px;
+}
+.navbar .navbar-nav .nav-link:hover {
+    background: #c47b22;
+}
+.navbar .navbar-nav .dropdown-menu {
+    top: 95%;
+    padding: 5px 0;
+    border-radius: 0;
+    font-size: 14px;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item {
+    padding: 5px 15px;
+    height: auto;
+    line-height: unset;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item:hover,
+.navbar .navbar-nav .dropdown-menu .dropdown-item:active {
+    color: #222222;
+    background-color: #ccc;
+    border-radius: 0;
+}
+
+.navbar .form-control,
+.navbar .btn {
+    font-size: 14px;
+}
+
+.subnavbar-container {
+    background: #f5f5f5;
+    padding: 3px 0;
+}
+
+/* Footer */
+footer {
+    font-size: 14px;
+    background-color: #f5f5f5;
+}
+footer .container {
+    padding-top: 7.5px ;
+    padding-bottom: 7.5px;
+}
+
+
+/* Content Card */
+.card {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+}
+.card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.card table, .card .table {
+  margin-bottom: 0;
+}
+
+
+/* Info box */
+.infoBox {
+    background: #f5f5f5;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    height: 80px;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border-radius: 3px;
+}
+@media (max-width: 767px){
+    .infoBox{
+        margin-bottom: 15px;
+    }
+}
+.infoBox .icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    text-align: center;
+    font-size: 60px;
+    line-height: 60px;
+    width: 75px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.1);
+}
+.infoBox .content {
+    display: inline-block;
+    padding: 7px 16px;
+}
+.infoBox .content .text {
+    font-size: 13px;
+    margin-top: 11px;
+    color: #222;
+    text-transform: uppercase;
+}
+.infoBox .content .value {
+    font-size: 20px;
+    margin-top: -4px;
+    color: #222;
+}
+.infoBox .content .value .smallText {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* Hash info box */
+.hashInfo {
+    background-color: #f5f5f5;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    cursor: default;
+    padding: 15px;
+    border-radius: 3px;
+    color: #222;
+    margin-bottom: 30px;
+}
+@media (max-width: 767px){
+    .hashInfo {
+        margin-bottom: 15px;
+    }
+}
+.hashInfo .text {
+    font-size: 13px;
+    color: #222;
+    text-transform: uppercase;
+}
+.hashInfo .content {
+    overflow: hidden;
+}
+.hashInfo .content .value {
+    float: left;
+    font-family: 'Inconsolata', monospace;
+    font-size: 16px;
+    color: #222;
+    padding-right: 8px;
+}
+.hashInfo .content .value a {
+    color: #222;
+}
+.hashInfo .content .time {
+    float: left;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+
+/* Charts */
+.chart {
+    margin: 20px 0 60px;
+    border: 1px solid #f5f5f5;
+}
+
+.luckGood {
+ color: #0b6623;
+}
+.luckBad {
+  color: red;
+}
+.luckMid {
+  color: #c47b22;
+}
+
+/* Tabs */
+.tab-pane table {
+    border: 1px solid rgb(222, 226, 230);
+    border-top: 0;
+}
+.tab-pane th {
+    border-top: 0;
+}

@@ -1,0 +1,207 @@
+<!-- Pool Charts -->
+<div class="row">
+
+  <div class="col-12 poolChart">
+    <h3 class="text-center"><span tkey="nethashrate">Network Hashrate</span></h3>
+    <div class="chart">
+      <canvas height="100" id="chart_nethash"></canvas>
+    </div>
+  </div>
+  <div class="col-12 poolChart">
+    <h3 class="text-center"><span tkey="poolhashrate">Pool Hashrate</span></h3>
+    <div class="chart">
+      <canvas height="100" id="chart_hashrate"></canvas>
+    </div>
+  </div>
+
+  <div class="col-sm-6 poolChart">
+    <h3 class="text-center"><span tkey="connectedminers">Connected Miners</span></h3>
+    <div class="chart">
+      <canvas height="100" id="chart_miners"></canvas>
+    </div>
+  </div>
+  <div class="col-sm-6 poolChart">
+    <h3 class="text-center"><span tkey="connectedworkers">Connected Workers</span></h3>
+    <div class="chart">
+      <canvas height="100" id="chart_workers"></canvas>
+    </div>
+  </div>
+
+
+  <div class="col-sm-6 poolChart">
+    <h3 class="text-center"><span tkey="priceUSD">Price USD</span></h3>
+    <div class="chart">
+      <canvas height="100" id="chart_priceUSD"></canvas>
+    </div>
+  </div>
+  <div class="col-sm-6 poolChart">
+    <h3 class="text-center"><span tkey="priceBTC">Price BTC</span></h3>
+    <div class="chart">
+      <canvas height="100" id="chart_priceBTC"></canvas>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+// Charts initialized
+var chartsInitialized = false;
+var intervalChartsUpdate;
+var chartsObj = {};
+
+// Update current page
+currentPage = {
+    destroy: function(){
+        if (chartsInitialized) {
+            chartsInitialized = false;
+            clearInterval(intervalChartsUpdate);
+            Object.keys(chartsObj).forEach(function(graphType) {
+                if(chartsObj.hasOwnProperty(graphType) && chartsObj[graphType] != null) {
+                    chartsObj[graphType].destroy();
+                }
+            });
+        }
+    },
+    update: function(){
+        if (lastStats.charts && !chartsInitialized) {
+            intervalChartsUpdate = setInterval(createCharts, 60*1000);
+            createCharts();
+            chartsInitialized = true;
+        }
+    }
+};
+
+/**
+ * Charts
+ **/
+
+// Create charts
+function createCharts() {
+    if (!lastStats || !lastStats.charts) return ;
+    var data = lastStats.charts;
+
+    var graphData = {
+        hashrate: getGraphData(data.hashrate),
+        nethash: getGraphData(data.nethash),
+        miners: getGraphData(data.miners),
+        workers: getGraphData(data.workers),
+        priceUSD: getGraphData(data.priceUSD),
+        priceBTC: getGraphData(data.priceBTC)
+    };
+
+    for (var graphType in graphData) {
+        if (graphData[graphType].values.length > 1) {
+            var $chart = $("#chart_"+graphType);
+
+            var bgcolor = "#f8a84d";
+            var bordercolor = "#c47b22";
+            var borderwidth = 1;
+
+            var ctx = document.getElementById("chart_"+graphType).getContext("2d");
+            var chartConfig = {
+                type: "line",
+                data: {
+                    labels: graphData[graphType].names,
+                    datasets: [{
+                        data: graphData[graphType].values,
+                        dataType: graphType,
+                        fill: true,
+                        backgroundColor: bgcolor,
+                        borderColor: bordercolor,
+                        borderWidth: borderwidth
+                    }]
+                },
+                options: {
+                    animation: false,
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    legend: { display: false },
+                    elements: { point: { radius: 0, hitRadius: 10, hoverRadius: 5 } },
+                    scales: {
+                        xAxes: [{
+                            display: false,
+                            ticks: { display: false },
+                            gridLines: { display: false }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                display: true,
+                                beginAtZero: true,
+                                userCallback: function(label, index, labels) {
+                                    if (Math.floor(label) === label) return label;
+                                }
+                            },
+                            gridLines: { display: true }
+                        }]
+                    },
+                    layout: {
+                        padding: { top: 15, left: 15, right: 15, bottom: 15 }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataType = data.datasets[tooltipItem.datasetIndex].dataType || "";
+                                var label = tooltipItem.yLabel;
+                                if (dataType == "hashrate" || dataType == "nethash")
+                                    label = getReadableHashRateString(tooltipItem.yLabel)+"/s";
+                                else label = formatNumber(tooltipItem.yLabel.toString(), " ");
+                                return " " + label;
+                            }
+                        }
+                    }
+                }
+            };
+            switch(graphType) {
+            case "workers":
+            case "miners":
+                chartConfig.data.datasets[0].steppedLine = true;
+                //chartConfig.options.scales.yAxes[0].display = false;
+                //chartConfig.options.scales.yAxes[0].ticks.display = false;
+                //chartConfig.options.scales.yAxes[0].gridLines.display = false;
+                break;
+            case "hashrate":
+            case "nethash":
+                chartConfig.options.scales.yAxes[0].ticks.userCallback = function(label, index, labels) {
+                    if (Math.floor(label) === label) return getReadableHashRateString(label)+"/s";
+                }
+                break;
+            case "priceUSD":
+                chartConfig.options.scales.yAxes[0].ticks.userCallback = function(label, index, labels) {
+                    if (Math.floor(label*10) === label*10) return label.toFixed(2);
+                }
+                break;
+            case "priceBTC":
+                chartConfig.options.scales.yAxes[0].ticks.userCallback = function(label, index, labels) {
+                    if (Math.floor(label*100000) === label*100000) return label.toFixed(8);
+                }
+                break;
+            }
+
+            if(chartsObj.hasOwnProperty(graphType) && chartsObj[graphType] != null) {
+                chartsObj[graphType].data = chartConfig.data;
+                chartsObj[graphType].update();
+            } else {
+                chartsObj[graphType] = new Chart(ctx, chartConfig);
+                $chart.closest(".poolChart").show();
+            }
+        }
+    }
+}
+
+// Get chart data
+function getGraphData(rawData) {
+    var graphData = {
+        names: [],
+        values: []
+    };
+    if(rawData) {
+        for (var i = 0, xy; xy = rawData[i]; i++) {
+            graphData.names.push(new Date(xy[0]*1000).toLocaleString());
+            graphData.values.push(xy[1]);
+        }
+    }
+    return graphData;
+}
+</script>

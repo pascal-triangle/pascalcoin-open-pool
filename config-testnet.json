@@ -1,0 +1,216 @@
+{
+    /* PascalCoin Testnet Configuration */
+
+    "poolHost": "your.pool.host",
+
+    "poolName": "Free PascalCoin Pool",
+    "poolId": "Freepool",
+
+    "coin": "PascalCoin",
+    "symbol": "PASC",
+    "algorithm": "RandomHash",
+
+    "logging": {
+	"files": {
+	    "level": "info",
+	    "directory": "logs",
+	    "flushInterval": 5
+	},
+	"console": {
+	    "level": "info",
+	    "colors": true
+	}
+    },
+
+    "poolServer": {
+	"enabled": true,
+	"connectionTimeout": 600,
+	"jobRebroadcastTimeout": 55,
+	"tcpProxyProtocol": false,
+	"clustering": {
+            "enabled": false,
+            "forks": "auto"
+	},
+	"ports": [
+	    {
+		"port": "3333",
+		"diff": 0.0000001,
+		"desc": "Fixed difficulty"
+	    },
+	    {
+		"port": "3334",
+		"diff": 0.00000015,
+		"desc": "Variable difficulty",
+		"varDiff": {
+		    "minDiff": 0.00000015,
+		    "maxDiff": 1,
+		    "targetTime": 15,
+		    "retargetTime": 90,
+		    "variancePercent": 30
+		}
+	    }
+	],
+	"banning": {
+	    "enabled": true,
+	    "time": 600,
+	    "invalidPercent": 50,
+	    "checkThreshold": 500,
+	    "purgeInterval": 300
+	}
+    },
+
+    "payments": {
+        "enabled": true,
+        "interval": 600,
+        "defaultPayment": 10,
+        "minPayment": 0.5,
+        "maxPayment": 100,
+        "pasaThreshold": 0.2,
+        "pasaDonations": "3GhhbosZdhiz5rdosLYaCRSG93nc2WLrob5bSX93WUie7VqX5XeArnZrPYZ9npXMvVceJf5fJqwFE4gX4ECwGEAGy86rhmRwjLS5ZF"
+    },
+
+    "blockUnlocker": {
+        "enabled": true,
+        "interval": 30,
+        "depth": 100
+    },
+
+    "fees": {
+        "poolFee": 0,
+        "devFee": 0.2000
+    },
+
+    "knownAccounts": [
+        {
+            "account": "86646-64",
+            "name": "Poloniex",
+            "requirePaymentID": true
+        }
+    ],
+
+    "daemon": {
+        "host": "127.0.0.1",
+        "port": 4103,
+        "miningPort": 4109,
+        "password": "your_wallet_password",
+        "monitoring": {
+            "enabled": true,
+            "interval": 60
+        }
+    },
+
+    "redis": {
+	"host": "127.0.0.1",
+	"port": 6379,
+	"database": 0,
+	"prefix": "pasc_testnet",
+	"auth": "",
+	"cleanupInterval": 7 // days to keep redis data
+    },
+
+    "stats": {
+	"updateInterval": 60,
+	"historicalRetention": 43200,
+	"hashrateWindow": 300
+    },
+
+    "api": {
+        "enabled": true,
+        "hashrateWindow": 600,
+        "updateInterval": 5,
+        "bindIp": "0.0.0.0",
+        "port": 8117,
+        "blocks": 30,
+        "payments": 30,
+        "password": "your_admin_password",
+        "trustProxyIP": true
+    },
+
+    "charts": {
+        "pool": {
+            "hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
+                "maximumPeriod": 604800
+            },
+            "miners": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
+                "maximumPeriod": 604800
+            },
+            "workers": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
+                "maximumPeriod": 604800
+            },
+            "nethash": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
+                "maximumPeriod": 604800
+            },
+            "priceUSD": {
+                "enabled": true,
+                "updateInterval": 300,
+                "stepInterval": 300,
+                "maximumPeriod": 604800
+            },
+            "priceBTC": {
+                "enabled": true,
+                "updateInterval": 300,
+                "stepInterval": 300,
+                "maximumPeriod": 604800
+            }
+        },
+        "user": {
+            "hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
+                "maximumPeriod": 604800
+            },
+            "worker_hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
+                "maximumPeriod": 604800
+            },
+            "payments": {
+                "enabled": true
+            }
+        },
+        "blocks": {
+            "enabled": true,
+            "days": 7
+        }
+    },
+
+    "email": {
+        "enabled": false,
+        "defaultNotifications": "worker_start,worker_stop,payment_pasc,payment_pasa",
+        "fromAddress": "your@email.com",
+        "transport": "sendmail",
+        "sendmail": {
+            "path": "/usr/sbin/sendmail"
+        },
+        "smtp": {
+            "host": "smtp.example.com",
+            "port": 587,
+            "secure": false,
+            "auth": {
+                "user": "username",
+                "pass": "password"
+            },
+            "tls": {
+                "rejectUnauthorized": false
+            }
+        },
+        "mailgun": {
+            "key": "your-private-key",
+            "domain": "mg.yourdomain"
+        }
+    }
+}

@@ -1,0 +1,298 @@
+<!-- Statistics -->
+<div id="poolStats" class="row">
+
+  <!-- Pool Hash Rate -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-dashboard"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="poolHashrate">Pool Hash Rate</span></div>
+        <div class="value"><span id="poolHashrate">N/A</span> <span class="smallText">(<span id="hashPower">0%</span>)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blocks Found -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-cubes"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="blocksTotal">Blocks Found</span></div>
+        <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="poolLastBlockFound">Never</span>)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blocks Found Every -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-history"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="blockSolvedTime">Blocks Found Every</span></div>
+        <div class="value"><span id="blockSolvedTime">N/A</span> <span class="smallText">(<span tkey="estimated">estimated</span>)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Current Effort -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-line-chart"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="currentEffort">Current Effort</span></div>
+        <div class="value"><span id="currentEffort">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Network Hash Rate -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-dashboard"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="networkHashrate">Network Hash Rate</span></div>
+        <div class="value"><span id="networkHashrate">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Difficulty -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-unlock-alt"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="networkDifficulty">Difficulty</span></div>
+        <div class="value"><span id="networkDifficulty">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blockchain Height -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-bars"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="blockchainHeight">Blockchain Height</span></div>
+        <div class="value"><span id="blockchainHeight">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connected Miners -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-group"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="poolMiners">Connected Miners</span></div>
+        <div class="value"><span id="poolMiners">N/A</span> <span class="smallText">(<strong><span id="poolWorkers">N/A</span></strong> <span tkey="workersCount">workers</span>)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pool Fee -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-dollar"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="poolFee">Pool Fee</span></div>
+        <div class="value"><span id="poolFee">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimum Payout -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-dollar"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="paymentsMinimum">Minimum Payout</span></div>
+        <div class="value"><span id="paymentsMinimum">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Interval -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-clock-o"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="paymentsInterval">Payment Interval</span></div>
+        <div class="value"><span id="paymentsInterval">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Market Price -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox">
+      <div class="icon">
+        <span class="fa fa-dollar"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="marketPrice">Market Price</span></div>
+        <div class="value"><span id="marketPriceUSD">N/A</span> <span class="smallText">(<span id="marketPriceBTC">N/A</span>)</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Last Hash -->
+  <div class="col-sm-12">
+    <div class="hashInfo">
+      <div class="text"><span tkey="lastNetworkBlock">Last Network Block</span></div>
+      <div class="content clearfix">
+        <div class="value"><a id="lastHash" target="_blank">N/A</a></div>
+        <div class="time">(<span id="networkLastBlockFound">Never</span>)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<h3 class="text-center">
+  <span tkey="topminers">Top Miners</span>
+</h3>
+<div class="card">
+  <div id="top_miners" class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="col1 sort">#</th>
+          <th class="col2 sort"><span tkey="miner">Miner</span></th>
+          <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
+          <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span></th>
+          <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
+        </tr>
+      </thead>
+      <tbody id="top_miners_rows">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+<!-- Javascript -->
+<script>
+// Update current page
+currentPage = {
+    destroy: function(){
+        $("#networkLastBlockFound,#poolLastBlockFound").timeago("dispose");
+        clearInterval(intervalUpdateTopMiners);
+    },
+    update: function(){
+        $("#networkLastBlockFound").timeago("update", new Date(lastStats.lastblock.timestamp * 1000).toISOString());
+
+        updateText("networkHashrate", getReadableHashRateString(lastStats.network.hashrate) + "/s");
+updateText("networkDifficulty", formatNumber(lastStats.network.difficulty.toString(), " "));
+        updateText("blockchainHeight", formatNumber(lastStats.network.height.toString(), " "));
+        updateText("lastHash", lastStats.lastblock.hash);
+        $("#lastHash").attr("href", getBlockchainUrl(lastStats.lastblock.height));
+
+        if(lastStats.charts.priceUSD && lastStats.charts.priceUSD.length) {
+            var lastPriceUSD = lastStats.charts.priceUSD[lastStats.charts.priceUSD.length-1];
+            updateText("marketPriceUSD", "$"+parseFloat(lastPriceUSD[1]).toFixed(2));
+        }
+        if(lastStats.charts.priceBTC && lastStats.charts.priceBTC.length) {
+            var lastPriceBTC = lastStats.charts.priceBTC[lastStats.charts.priceBTC.length-1];
+            updateText("marketPriceBTC", (parseFloat(lastPriceBTC[1])*1000).toFixed(5)+" mBTC");
+        }
+
+        updateText("poolHashrate", getReadableHashRateString(lastStats.pool.hashrate) + "/s");
+        updateText("blocksTotal", lastStats.pool.totalBlocks.toString());
+
+        var hashPower = lastStats.pool.hashrate / (lastStats.network.hashrate) * 100;
+        updateText("hashPower", hashPower.toFixed(2) + "%");
+
+        if (lastStats.pool.lastBlockFound) {
+            var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
+            $("#poolLastBlockFound").timeago("update", d);
+        } else {
+            $("#poolLastBlockFound").data("ts", "").update("Never");
+        }
+
+        updateText("poolMiners", lastStats.pool.miners.toString());
+        updateText("poolWorkers", lastStats.pool.workers.toString());
+
+        var totalFee = lastStats.config.fee;
+        updateText("poolFee", (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? "100" : "0")) + "%");
+
+        updateText("paymentsInterval", getReadableTime(lastStats.config.paymentsInterval));
+        updateText("paymentsMinimum", getReadableCoins(lastStats.config.minPaymentThreshold));
+
+        updateText("blockSolvedTime", getReadableTime(lastStats.network.difficulty / (lastStats.pool.hashrate / Math.pow(2, 32))));
+        updateText("currentEffort", (lastStats.pool.roundHashes / (Math.pow(2, 32) * lastStats.network.difficulty) * 100).toFixed(1) + "%");
+
+    }
+};
+
+
+// Get miner cells
+function getMinerCells(position, data){
+    var miner = data.miner;
+    var miner_url = formatAccountLink(data.account);
+    var hashrate = data.hashrate ? data.hashrate : 0;
+    var lastShare = data.lastShare ? data.lastShare : 0;
+    var hashes = (data.hashes || 0).toString();
+
+    return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
+           '<td class="col2" data-sort="' + miner + '">' + miner_url + '</td>' +
+           '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/s</td>' +
+           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
+}
+
+// Update top miners report
+function updateTopMiners() {
+
+    var xhrGetTOP = $.ajax({
+        url: api + "/get_top_miners",
+        data: {
+            time: $("#top_miners_rows").children().last().data("time")
+        },
+        dataType: "json",
+        cache: "false",
+        success: function(data){
+            if (!data) return;
+            $("#top_miners_rows").empty();
+            for (var i=0; i<data.length; ++i) {
+                $( "#top_miners_rows" ).append("<tr>" + getMinerCells(i+1, data[i]) + "</tr>");
+            }
+        }
+    });
+}
+
+// Load initial data
+updateTopMiners();
+
+// Start updates once per minute
+var intervalUpdateTopMiners = setInterval(updateTopMiners, (60*1000));
+
+// Enable timeago on last block found
+$("#networkLastBlockFound,#poolLastBlockFound").timeago();
+
+</script>

@@ -1,0 +1,333 @@
+<!-- Statistics -->
+<div id="blocksStats" class="row">
+
+  <!-- Total Blocks Mined -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox hoverExpandEffect">
+      <div class="icon">
+        <span class="fa fa-cubes"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="blocksTotal">Total Blocks Mined</span></div>
+        <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="lastBlockFound">Never</span>)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Maturity Depth Requirement -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox hoverExpandEffect">
+      <div class="icon">
+        <span class="fa fa-unlock-alt"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="blocksMaturityCount">Maturity Requirement</span></div>
+        <div class="value"><span id="blocksMaturityCount">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Average Luck -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox hoverExpandEffect">
+      <div class="icon">
+        <span class="fa fa-line-chart"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="averageLuck">Average Luck</span></div>
+        <div class="value"><span id="averageLuck">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Current Effort -->
+  <div class="col-lg-3 col-sm-4">
+    <div class="infoBox hoverExpandEffect">
+      <div class="icon">
+        <span class="fa fa-line-chart"></span>
+      </div>
+      <div class="content">
+        <div class="text"><span tkey="currentEffort">Current Effort</span></div>
+        <div class="value"><span id="currentEffort">N/A</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Chart -->
+<div id="blocksChart">
+  <h3 class="text-center"><span id="blocksChartTitle" tkey="blocksfound">Blocks Found</span></h3>
+  <div class="chart">
+    <canvas height="100" id="blocksChartObj"></canvas>
+  </div>
+</div>
+
+<!-- Report -->
+<div class="card">
+  <div id="blocksReport" class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th class="col1"><span tkey="height">Height</span></th>
+          <th class="col2"><span tkey="timeFound">Time Found</span></th>
+          <th class="col3"><span tkey="reward">Reward</span></th>
+          <th class="col4"><span tkey="status">Status</span></th>
+          <th class="col5"><span tkey="miner">Miner</span></th>
+          <th class="col6"><span tkey="effort">Effort</span></th>
+        </tr>
+      </thead>
+      <tbody id="blocksReport_rows">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<p class="text-center">
+  <button type="button" class="btn btn-secondary mt-3" id="loadMoreBlocks"><span tkey="loadMore">Load More</span></button>
+</p>
+
+<!-- Javascript -->
+<script>
+
+// Hide blocks chart on load
+var chartsInitialized = false;
+var intervalChartsUpdate;
+var chartsObj = {};
+
+// Update current page
+currentPage = {
+    destroy: function(){
+        if (xhrGetBlocks) xhrGetBlocks.abort();
+        if (chartsInitialized) {
+            chartsInitialized = false;
+            clearInterval(intervalChartsUpdate);
+            Object.keys(chartsObj).forEach(function(graphType) {
+                if(chartsObj.hasOwnProperty(graphType) && chartsObj[graphType] != null) {
+                    chartsObj[graphType].destroy();
+                }
+            });
+        }
+
+    },
+    update: function(){
+        updateText("blocksTotal", lastStats.pool.totalBlocks.toString());
+        if (lastStats.pool.lastBlockFound) {
+            var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
+            $("#lastBlockFound").timeago("update", d);
+        } else {
+            $("#lastBlockFound").removeAttr("title").data("ts", "").update("Never");
+        }
+        updateText("blocksMaturityCount", lastStats.config.depth.toString());
+
+        $("#averageLuck").html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
+
+        $("#currentEffort").html(formatLuck((Math.pow(2, 32) * lastStats.network.difficulty), lastStats.pool.roundHashes));
+
+        renderBlocks(lastStats.pool.blocks);
+
+        if (lastStats.charts.blocks && !chartsInitialized) {
+            intervalChartsUpdate = setInterval(generateChart, 60*1000);
+            generateChart();
+            chartsInitialized = true;
+        }
+
+    }
+};
+
+// Chart
+var displayedChart = false;
+function generateChart() {
+    var data = lastStats.charts.blocks;
+    if (!data || data === "undefined") return ;
+
+    var chartDays = lastStats.config.blocksChartDays || null;
+    var title = getTranslation("poolBlocks") ? getTranslation("poolBlocks") : "Blocks found";
+    if (chartDays) {
+        if (chartDays === 1) title = getTranslation("blocksFoundLast24") ? getTranslation("blocksFoundLast24") : "Blocks found in the last 24 hours";
+        else title = getTranslation("blocksFoundLastDays") ? getTranslation("blocksFoundLastDays") : "Blocks found in the last {DAYS} days";
+        title = title.replace("{DAYS}", chartDays);
+    }
+    updateText("blocksChartTitle", title);
+
+    var labels = [];
+    var values = [];
+
+    for (var key in data) {
+        var label = key;
+        labels.push(label);
+        values.push(data[key]);
+    }
+
+    var $chart = $("#blocksChartObj");
+
+    var bgcolor = "#f8a84d";
+    var bordercolor = "#c47b22";
+    var borderwidth = 1;
+
+    var graphType = "blocks";
+    var ctx = document.getElementById("blocksChartObj").getContext("2d");
+    var chartConfig = {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Blocks",
+                data: values,
+                fill: false,
+                backgroundColor: bgcolor,
+                borderColor: bordercolor,
+                borderWidth: borderwidth
+            }]
+        },
+        options: {
+            animation: false,
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: { display: false },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function(label, index, labels) {
+                            if (Math.floor(label) === label) return label;
+                        }
+                    }
+                }],
+            },
+            layout: {
+                padding: { top: 15, left: 15, right: 15, bottom: 15 }
+            }
+        }
+    };
+    if(chartsObj.hasOwnProperty(graphType) && chartsObj[graphType] != null) {
+        chartsObj[graphType].data = chartConfig.data;
+        chartsObj[graphType].update();
+    } else {
+        chartsObj[graphType] = new Chart(ctx, chartConfig);
+        $chart.show();
+    }
+}
+
+// Parse block data
+function parseBlock(height, serializedBlock){
+    var parts = serializedBlock.split(":");
+    var block = {
+        height: parseInt(height),
+        worker: parts[0],
+        hash: parts[1],
+        time: parts[2],
+        difficulty: parseInt(parts[3]),
+        shares: parseInt(parts[4]),
+        reward: (parts[5] / 10000).toFixed(4),
+        orphaned: parts[6]
+    };
+
+    var toGo = lastStats.config.depth - (lastStats.network.height - block.height) + 1;
+    if(block.orphaned == 2) {
+        block.status = "unlocked";
+    } else if(block.orphaned == 1) {
+        block.status = "orphaned";
+    } else if(toGo > 0){
+        block.status = "pending";
+        block.toGo = toGo + " to go";
+    } else {
+        block.status = "pending";
+        block.toGo = "pending";
+    }
+
+
+    return block;
+}
+
+// Get block row element
+function getBlockRowElement(block, jsonString){
+    function formatBlockLink(height, hash) {
+        return '<a target="_blank" title="'+hash+'" href="'+getBlockchainUrl(height)+'">'+height+'</a>';
+    }
+
+    var blockStatusClasses = {
+        "pending": "pending",
+        "unlocked": "unlocked",
+        "orphaned": "orphaned"
+    };
+
+    var row = document.createElement("tr");
+    row.setAttribute("data-json", jsonString);
+    row.setAttribute("data-height", block.height);
+    row.setAttribute("data-hash", block.hash);
+    row.setAttribute("id", "blockRow" + block.hash);
+    row.setAttribute("title", block.status);
+    row.className = blockStatusClasses[block.status];
+
+    var reward = "";
+    if(typeof block.reward == "undefined" || isNaN(block.reward)){
+        reward = "Waiting...";
+    } else {
+        reward = getReadableCoins(block.reward, null, true);
+    }
+
+    var miner_url = formatAccountLink(block.worker);
+
+    var columns =
+        '<td class="col1">'+formatBlockLink(block.height, block.hash)+'</td>' +
+        '<td class="col1">'+formatDate(block.time)+'</td>' +
+        '<td class="col2">'+reward+'</td>' +
+        '<td class="col7">'+(block.status=='pending'?block.toGo:block.status)+'</td>' +
+        '<td class="col5">'+miner_url+'</td>' +
+        '<td class="col6" title="'+block.shares+' shares submitted">'+formatLuck(block.difficulty,block.shares)+'</td>';
+
+    row.innerHTML = columns;
+
+    return row;
+}
+
+// Render blocks
+function renderBlocks(blocksResults){
+    var $blocksRows = $("#blocksReport_rows");
+
+    for (var i = 0; i < blocksResults.length; i += 2){
+        var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
+        var blockJson = JSON.stringify(block);
+
+        var existingRow = document.getElementById("blockRow" + block.hash);
+        if (existingRow && existingRow.getAttribute("data-json") !== blockJson){
+            $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
+        }
+        else if (!existingRow){
+            var blockElement = getBlockRowElement(block, blockJson);
+
+            var inserted = false;
+            var rows = $blocksRows.children().get();
+            for (var f = 0; f < rows.length; f++) {
+                var bHeight = parseInt(rows[f].getAttribute("data-height"));
+                if (bHeight < block.height){
+                    inserted = true;
+                    $(rows[f]).before(blockElement);
+                    break;
+                }
+            }
+            if (!inserted){
+                $blocksRows.append(blockElement);
+            }
+        }
+    }
+}
+
+// Load more blocks button
+var xhrGetBlocks;
+$("#loadMoreBlocks").click(function(){
+    if (xhrGetBlocks) xhrGetBlocks.abort();
+    xhrGetBlocks = $.ajax({
+        url: api + "/get_blocks",
+        data: {
+            height: $("#blocksReport_rows").children().last().data("height")
+        },
+        dataType: "json",
+        cache: "false",
+        success: function(data){
+            renderBlocks(data);
+        }
+    });
+});
+</script>
