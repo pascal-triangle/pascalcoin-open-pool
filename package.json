@@ -23,8 +23,11 @@
         "bignum": "^0.13.0",
         "cli-color": "^1.4.0",
         "dateformat": "^3.0.3",
+        "mailgun.js": "^2.0.1",
         "node-json-minify": "^1.0.0",
         "node-randomhash": "git://github.com/PascalCoinFreePool/node-randomhash.git",
+        "nodemailer": "^2.7.2",
+        "nodemailer-sendmail-transport": "^1.0.2",
         "redis": "^2.8.0",
         "request": "^2.88.0",
         "request-promise": "^4.2.2"

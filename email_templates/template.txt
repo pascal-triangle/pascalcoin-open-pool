@@ -1,0 +1,5 @@
+You've received a message from %POOL_NAME%,
+
+%MESSAGE%
+
+%POOL_NAME% - %POOL_HOST
