@@ -1,0 +1,78 @@
+<h3 class="text-center">
+  <span tkey="allminers">All Miners</span>
+</h3>
+<div class="card">
+  <div id="all_miners" class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="col1 sort">#</th>
+          <th class="col2 sort"><span tkey="miner">Miner</span></th>
+          <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
+          <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span></th>
+          <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
+        </tr>
+      </thead>
+      <tbody id="all_miners_rows">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+<!-- Javascript -->
+<script>
+// Update current page
+currentPage = {
+    destroy: function(){
+        clearInterval(intervalUpdateAllMiners);
+    },
+    update: function(){
+    }
+};
+
+// Get miner cells
+function getMinerCells(position, data){
+    var miner = data.miner;
+    var miner_url = formatAccountLink(data.account);
+    var hashrate = data.hashrate ? data.hashrate : 0;
+    var lastShare = data.lastShare ? data.lastShare : 0;
+    var hashes = (data.hashes || 0).toString();
+
+    return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
+           '<td class="col2" data-sort="' + miner + '">' + miner_url + '</td>' +
+           '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/s</td>' +
+           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
+}
+
+// Update all miners report
+function updateAllMiners() {
+
+    var xhrGetTOP = $.ajax({
+        url: api + "/get_top_miners",
+        data: {
+            limit: 0,
+            time: $("#all_miners_rows").children().last().data("time")
+        },
+        dataType: "json",
+        cache: "false",
+        success: function(data){
+            if (!data) return;
+            $("#all_miners_rows").empty();
+            for (var i=0; i<data.length; ++i) {
+                $( "#all_miners_rows" ).append("<tr>" + getMinerCells(i+1, data[i]) + "</tr>");
+            }
+        }
+    });
+}
+
+// Load initial data
+updateAllMiners();
+
+// Start updates once per minute
+var intervalUpdateAllMiners = setInterval(updateAllMiners, (60*1000));
+
+</script>
