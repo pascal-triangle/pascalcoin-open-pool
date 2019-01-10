@@ -237,18 +237,41 @@
   </div>
 
   <!-- Last Hash -->
-  <div class="col-sm-12">
-    <div class="hashInfo">
-      <div class="text"><span tkey="totalHashes">Total Hashes Submitted</span></div>
+  <div class="col-sm-12 col-lg-6">
+    <div class="infoBox">
+      <div class="icon">
+        <i class="fa fa-cloud-upload"></i>
+      </div>
       <div class="content clearfix">
-        <div class="value"><span id="yourHashes">N/A</span></div>
-        <div class="time">(<span id="yourLastShare">Never</span>)</div>
+        <div class="text"><span tkey="totalHashes">Total Hashes Submitted</span></div>
+        <div class="value">
+          <span class="mediumText">
+            <span id="yourHashes">N/A</span>
+          </span>
+          <span class="smallText">
+            (<span id="yourLastShare">Never</span>)
+          </span>
+        </div>
       </div>
     </div>
   </div>
 
-
-
+  <!-- Round Contribution -->
+  <div class="col-sm-12 col-lg-6">
+    <div class="infoBox">
+      <div class="icon">
+        <i class="fa fa-pie-chart"></i>
+      </div>
+      <div class="content clearfix">
+        <div class="text"><span tkey="roundContribution">Round Contribution</span></div>
+        <div class="value">
+          <span class="mediumText">
+            <span id="yourRoundContribution">N/A</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="col-12 userChart">
     <h4 class="text-center"><span tkey="hashrateWeek">Hashrate (last 7 days)</span></h4>
@@ -458,7 +481,6 @@ function fetchAddressStats(longpoll) {
             }
             updateText("yourPaymentId", data.account.payment_id);
 
-            //button id="watchAccount" type="button" class="btn btn-sm btn-secondary ml-1" data-account="" data-op="watch"
             $("#watchAccount").attr("data-account", data.account.address_pid);
 
             if(getMyAccount() == data.account.address_pid) {
@@ -493,17 +515,9 @@ function fetchAddressStats(longpoll) {
 
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);
             var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
-            var userRoundScore = parseFloat(data.stats.roundScore || 0);
-            var poolRoundScore = parseFloat(lastStats.pool.roundScore || 0);
-            var lastReward = parseFloat(lastStats.lastblock.reward || 0);
+            var share_pct = poolRoundHashes == 0 ? 0 : Math.min(100, userRoundHashes * 100 / poolRoundHashes);
 
-            var poolFee = lastStats.config.fee;
-	    var transferFee = lastStats.config.transferFee;
-
-            var share_pct = userRoundHashes * 100 / poolRoundHashes;
-            var score_pct = userRoundScore * 100 / poolRoundScore;
-            updateText("yourRoundShareProportion", Math.round(share_pct * 1000) / 1000);
-            updateText("yourRoundScoreProportion", Math.round(score_pct * 1000) / 1000);
+            updateText("yourRoundContribution", (Math.round(share_pct * 1000) / 1000)+"%");
 
             renderPayments(data.payments);
             renderPasaPayments(data.pasaPayments);

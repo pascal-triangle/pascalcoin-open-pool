@@ -26,6 +26,10 @@ a:focus {
     color: #b3701f;
 }
 
+.monospace {
+    font-family: 'Inconsolata', monospace, monospace;
+}
+
 #page-wrapper {
     margin: 30px 0 100px;
 }
@@ -206,46 +210,14 @@ footer .container {
     font-size: 14px;
     font-weight: normal;
 }
-
-/* Hash info box */
-.hashInfo {
-    background-color: #f5f5f5;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    cursor: default;
-    padding: 15px;
-    border-radius: 3px;
-    color: #222;
-    margin-bottom: 30px;
-}
-@media (max-width: 767px){
-    .hashInfo {
-        margin-bottom: 15px;
-    }
-}
-.hashInfo .text {
-    font-size: 13px;
-    color: #222;
-    text-transform: uppercase;
-}
-.hashInfo .content {
-    overflow: hidden;
-}
-.hashInfo .content .value {
-    float: left;
-    font-family: 'Inconsolata', monospace;
+.infoBox .content .value .mediumText {
     font-size: 16px;
-    color: #222;
-    padding-right: 8px;
-}
-.hashInfo .content .value a {
-    color: #222;
-}
-.hashInfo .content .time {
-    float: left;
-    font-size: 15px;
     font-weight: normal;
 }
 
+.infoBox .content .value a {
+    color: #222;
+}
 
 /* Charts */
 .chart {
