@@ -408,5 +408,9 @@ function renderLangSelector() {
             });
         });
     }
-
 }
+
+// Navbar
+$(".navbar-nav a:not(.dropdown-toggle), #accountSearch button").on("click", function(){
+    $(".navbar-collapse").collapse("hide");
+});
