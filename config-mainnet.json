@@ -1,6 +1,6 @@
 {
     /**
-     * PascalCoin Testnet Configuration
+     * PascalCoin Mainnet Configuration
      */
 
     /* Hostname miners should connect to */
@@ -73,7 +73,7 @@
          * the 'forks' field can be a number for how many forks will be spawned.
          */
 	"clustering": {
-            "enabled": false,
+            "enabled": true,
             "forks": "auto"
 	},
 
@@ -92,7 +92,7 @@
 		"port": "3333",
 
                 /* The starting or fixed difficulty for this port */
-		"diff": 0.00000010,
+		"diff": 0.00000100,
 
                 /* Short description for the frontend */
 		"desc": "Variable difficulty (150 H/s)",
@@ -105,10 +105,10 @@
                  */
 		"varDiff": {
                     /* Minimum difficulty */
-		    "minDiff": 0.00000010,
+		    "minDiff": 0.00000100,
 
                     /* Maximum difficulty */
-		    "maxDiff": 0.00001000,
+		    "maxDiff": 0.00010000,
 
                     /* Try to get 1 share per this many seconds */
 		    "targetTime": 30,
@@ -122,12 +122,12 @@
 	    },
 	    {
 		"port": "3334",
-		"diff": 0.00000050,
+		"diff": 0.00000500,
 		"desc": "Variable difficulty (700 H/s)",
                 "hidden": false,
 		"varDiff": {
-		    "minDiff": 0.00000010,
-		    "maxDiff": 0.00001000,
+		    "minDiff": 0.00000100,
+		    "maxDiff": 0.00010000,
 		    "targetTime": 30,
 		    "retargetTime": 90,
 		    "variancePercent": 30
@@ -135,12 +135,12 @@
 	    },
 	    {
 		"port": "3335",
-		"diff": 0.00000100,
+		"diff": 0.00001000,
 		"desc": "Variable difficulty (1500 H/s or greater)",
                 "hidden": false,
 		"varDiff": {
 		    "minDiff": 0.00000100,
-		    "maxDiff": 0.00001000,
+		    "maxDiff": 0.00010000,
 		    "targetTime": 30,
 		    "retargetTime": 90,
 		    "variancePercent": 30
@@ -148,19 +148,19 @@
 	    },
 	    {
 		"port": "3336",
-		"diff": 0.00000010,
+		"diff": 0.00000100,
 		"desc": "Fixed difficulty (150 H/s)",
                 "hidden": true
 	    },
 	    {
 		"port": "3337",
-		"diff": 0.00000050,
+		"diff": 0.00000500,
 		"desc": "Fixed difficulty (500 H/s)",
                 "hidden": true
 	    },
 	    {
 		"port": "3338",
-		"diff": 0.00000100,
+		"diff": 0.00001000,
 		"desc": "Fixed difficulty (1500 H/s or greater)",
                 "hidden": true
 	    }
@@ -206,7 +206,7 @@
         "maxPayment": 100,
 
         /* Amount of PASC mined per PASA payout */
-        "pasaThreshold": 0.2,
+        "pasaThreshold": 10,
 
         /* Default b58 key to donate unclaimed PASA */
         "pasaDonations": "3GhhbosZdhiz5rdosLYaCRSG93nc2WLrob5bSX93WUie7VqX5XeArnZrPYZ9npXMvVceJf5fJqwFE4gX4ECwGEAGy86rhmRwjLS5ZF"
@@ -236,7 +236,7 @@
         "poolFee": 0,
 
         /* Network fee in PASC, do not change this */
-        "devFee": 0.2000
+        "devFee": 10.0000
     },
 
     /**
@@ -260,10 +260,10 @@
         "host": "127.0.0.1",
 
         /* RPC port of pascalcoin_daemon */
-        "port": 4103,
+        "port": 4003,
 
         /* Mining port of pascalcoin_daemon */
-        "miningPort": 4109,
+        "miningPort": 4009,
 
         /* Password of the pool wallet open in the daemon
          * Make sure to set this with curl before operation!
@@ -293,7 +293,7 @@
 	"database": 0,
 
         /* Redis prefix */
-	"prefix": "pasc_testnet",
+	"prefix": "pasc_mainnet",
 
         /* Redis auth */
 	"auth": "",
