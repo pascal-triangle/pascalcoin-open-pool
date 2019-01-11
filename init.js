@@ -1,6 +1,6 @@
 /**
- * Free Pascal Pool
- * https://github.com/
+ * PascalCoin Open Pool
+ * https://github.com/PascalCoinPool/pascalcoin-open-pool
  *
  * Pool initialization script
  **/
@@ -9,9 +9,7 @@ var fs = require("fs");
 var cluster = require("cluster");
 var os = require("os");
 
-// Hmm... figure this out
 global.diff1 = 0x00000000ffff0000000000000000000000000000000000000000000000000000;
-
 
 /**
  * Read config file into global config variable
