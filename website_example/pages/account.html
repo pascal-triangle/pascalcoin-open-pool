@@ -24,15 +24,17 @@
         <div>
           <p>To change your account settings, you must specify your password (the email portion of your login) and either the minimum payout field, the public key field, or both.</p>
           <p>For security purposes, you must use the same email / password for all of your workers. This prevents someone from mining to your account with their email for a short period of time in order to change your settings.</p>
-          <p>If you are receiving an "incorrect password" message, make sure that all your workers have the same email / password. If you recently changed your password, allow 60 minutes for your old password to expire.</p>
-          <p>You can receive 1 PASA for every <span class="pasaThreshold">10</span> PASC you mine on this pool. You must use a secp256k1 key. To get your public key from the wallet, go to Project &gt; Private Keys and copy the public key in base58 format.<p>
+          <p>If you are receiving an "incorrect password" message, make sure that all your workers have the same email / password. If you recently changed your password, allow <span id="passwordExpireTime">1 hour</span> for your old password to expire.</p>
+          <p>You can receive 1 PASA for every <span class="pasaThreshold">10 PASC</span> you mine on this pool. You must use a secp256k1 key. To get your public key from the wallet, go to Project &gt; Private Keys and copy the public key in base58 format.<p>
             <hr/>
             <div>
               <strong>Your current minimum payout is:</strong> <span id="myCurrentMinPayout"></span>
               <br/>
               <strong>Your current public key is:</strong> <code style="word-break: break-all" id="myCurrentPublicKey"></code>
               <br/>
-              <strong>Your current notification settings are:</strong> <span id="myCurrentNotifySettings"></span>
+              <span class="emailEnabled">
+                <strong>Your current notification settings are:</strong> <span id="myCurrentNotifySettings"></span>
+              </span>
             </div>
             <hr/>
           <p>Update settings:</p>
@@ -73,7 +75,7 @@
             </div>
           </div>
 
-          <div class="form-group col-12">
+          <div class="form-group col-12 emailEnabled">
             <div class="form-check form-check-inline">
               <span>Notify me when:</span>
             </div>
@@ -587,7 +589,13 @@ function fetchAddressSettings() {
                 updateText("myCurrentNotifySettings", "None")
             }
 
-            $(".pasaThreshold").html(lastStats.config.pasaThreshold);
+            updateTextClasses("pasaThreshold", lastStats.config.pasaThreshold + " " + lastStats.config.symbol);
+            updateText("passwordExpireTime", getReadableTime(lastStats.config.passwordExpireTime || 3600));
+            if(lastStats.config.sendEmails) {
+                $(".emailEnabled").show();
+            } else {
+                $(".emailEnabled").hide();
+            }
         },
         error: function(e) {
         }
