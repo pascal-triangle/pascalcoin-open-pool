@@ -1109,7 +1109,7 @@ function getPasaPaymentRowElement(payment, jsonString) {
 function getPasaPaymentCells(payment) {
     return '<td class="col1">' + formatDate(payment.time) + '</td>' +
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
-           '<td class="col3">' + payment.account + '</td>' +
+           '<td class="col3">' + formatExternalAccountLink(payment.account) + '</td>' +
            '<td class="col4">' + getReadableCoins(payment.fee, true) + '</td>';
 }
 
