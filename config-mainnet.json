@@ -3,6 +3,9 @@
      * PascalCoin Mainnet Configuration
      */
 
+    /* Frontend URL of the pool */
+    "poolUrl": "https://your.pool.host/",
+
     /* Hostname miners should connect to */
     "poolHost": "your.pool.host",
 
