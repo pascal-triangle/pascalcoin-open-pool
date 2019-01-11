@@ -69,7 +69,7 @@
 <h3><span tkey="configGenerator">Configuration Generator</span></h3>
 
 <!-- Configuration Generator -->
-<div class="card p-3">
+<div class="card p-3 mb-3">
   <p><span tkey="configGeneratorDesc">Generate your custom configuration to mine on our pool</span></p>
 
   <div id="configGenerator" class="form-row mt-3">
@@ -125,36 +125,24 @@
             <i class="fa fa-at"></i>
           </div>
         </div>
-        <input class="form-control" id="gEmail" tplaceholder="emailField" type="text" placeholder="Email" />
-      </div>
-    </div>
-
-    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-secondary" data-toggle="collapse" />
-    </div>
-
-    <div class="form-group col-lg-9 col-md-8 col-sm-6 col-xs-12">
-      <div class="form-check form-check-inline" style="height:100%">
-        <input class="form-check-input" type="radio" name="gPlatform" value="Windows" id="gWindows" checked>
-        <label class="form-check-label" for="gWindows">Windows</label>
-      </div>
-      <div class="form-check form-check-inline" style="height:100%">
-        <input class="form-check-input" type="radio" name="gPlatform" value="Linux" id="gLinux">
-        <label class="form-check-label" for="gLinux">Linux</label>
+        <input class="form-control" id="gEmail" tplaceholder="emailField" type="text" placeholder="Email / Password" />
       </div>
     </div>
 
   </div>
 
-  <h5>Example configuration</h5>
+  <h5 class="mt-3">Config for rhminer (Windows)</h5>
   <p>
-    <code id="gWindowsConfig">
+    <code>
       :start<br/>
       &nbsp;&nbsp;REM Mining on <span class="exampleHost">POOL_HOST</span> with four CPU thread<br/>
       &nbsp;&nbsp;rhminer.exe -r 20 -s stratum+tcp://<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -su <span class="exampleLogin">ACCOUNT.0.WORKER/EMAIL</span> -cpu -cputhreads 4<br/>
       goto start
     </code>
-    <code id="gLinuxConfig" style="display:none">
+  </p>
+  <h5 class="mt-3">Config for rhminer (Linux)</h5>
+  <p>
+    <code>
       #!/bin/bash<br/>
       while true<br/>
       do<br/>
@@ -163,10 +151,78 @@
       done
     </code>
   </p>
-
+  <h5 class="mt-3">Config for nanominer (Windows &amp; Linux)</h5>
+  <p>
+    <code>
+      [RandomHash]<br/>
+      wallet = <span class="exampleAccount">ACCOUNT</span><br/>
+      paymentId = <span class="examplePaymentId">0</span><br/>
+      rigName = <span class="exampleRigName">WORKER</span><br/>
+      email = <span class="exampleEmail">EMAIL</span><br/>
+      pool1 = <span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>
+    </code>
+  </p>
 
 </div>
 
+<!-- FAQ -->
+<h3 class="mt-3"><span tkey="faq">Frequently Asked Questions</span></h3>
+
+<div class="card p-3 mb-3">
+  <h5>Which mining software can I use?</h5>
+  <p>This pool is compatible with both <a href="https://github.com/polyminer1/rhminer/releases" target="_blank">rhminer</a> and <a href="https://github.com/nanopool/nanominer/releases" target="_blank">nanominer</a>. The open sourced rhminer is recommended as its 1% fee supports the development of PascalCoin. The closed sourced nanominer has a 3% to 5% fee and does not support development. Please choose your miner software carefully.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>Should I use my CPU or GPU to mine?</h5>
+  <p>PascalCoin uses the RandomHash algo which is most effective with CPUs. If you have an nVidia GPU  you can mine on it with rhminer, but even a 1080ti will not give as much hashrate as a core i3. It is not recommended to mine with your GPU.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>Where do I get a PascalCoin account?</h5>
+  <p>PacalCoin uses a unique address system with human readable numbers such as 1234-56 called PASA. This is opposed to a long string of numbers or letters like most other cryptocurrencies. You must have an account in order to receive coins in your wallet. You can receive a free PASA from <a href="https://freepasa.org/" target="_blank">freepasa.org</a>. This pool also pays out one PASA for every <span id="pasaPaymentsMinimum">10 PASC</span> you earn.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>Do I need to register an account to mine here?</h5>
+  <p>You do not need to register an account at this pool. You only need to have a PASA as explained in the previous question. Once your miner connects to this pool, your stats will start showing up.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>Why does this pool ask for my email?</h5>
+  <p>Your email is used for notifications of payouts / worker status and will never be visible publicly. It is also used as your password in order to change miner settings. If you do not want to disclose your email, you put something else in that field like "my_random_password" in order to still access your miner settings.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>How do I change my payout settings?</h5>
+  <p>When you start mining, set the email / password field in your miner settings. On your account page under the settings window you can change various settings for your miner. For security reasons, all of your connected workers must use the same email / password. If you have recently changed the password of your workers, you must wait <span id="passwordExpireTime">1 hour</span> for your old password to expire.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>Which payment scheme is used?</h5>
+  <p>Proportional (PPS) which means every time a block is found, the block reward is split between miners according to the number of shares they submitted during the current round.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>When is my balance paid?</h5>
+  <p>When this pool finds a block, your share of the reward will be added to your unconfirmed balance within 10 minutes. Once the block has matured with <span id="blocksMaturityCount">100</span> confirms, your share of the reward will be added to your confirmed balance. When your balance exceeds <span id="paymentsMinimum">0.5000 PASC</span> it will be available for payout. Payouts occur every <span id="paymentsInterval">10 minutes</span>.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>Why is my hashrate wrong on this pool?</h5>
+  <p>When you start to mine your hashrate grows gradually. The pool determines your hashrate based on the amount of shares sent by your mining rigs. This value could be a little bit different from the hashrate your mining software reports. Over time, your 6/24 hour hashrate should be accurate.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>What is the difference between a share and a hash?</h5>
+  <p>Each share is a possible valid hash for the block, and are sent from your rigs to the pool to prove their work. The difficulty set by the pool is much lower than the network difficulty in order to let you find shares easily. Since this pool supports variable difficulty ports, all shares are not equal. If you have a higher hashrate your difficulty will increase, but each share you submit will be worth more than a share of a lower hashrate worker. Total hashes on this pool indicates how many hashes it takes to create a share of a given difficulty.</p>
+</div>
+
+<div class="card p-3 mb-3">
+  <h5>What is the block effort percentage?</h5>
+  <p>Mining is probabilistic in nature. If you find a block earlier than you statistically should you are lucky. If it takes longer, you are unlucky. In a perfect world, the pool would find a block on 100% luck value every time. Over time, lucky and unlucky blocks will cancel each other out and converge to near 100% overall effort.</p>
+  </p>
+</div>
 
 <!-- Javascript -->
 <script>
@@ -185,7 +241,6 @@ currentPage = {
     },
     update: function(){
         var portsJson = JSON.stringify(lastStats.config.ports);
-        console.log(lastStats.config.ports);
         if (lastPortsJson !== portsJson) {
             lastPortsJson = portsJson;
             var $miningPortChildren = [];
@@ -213,6 +268,12 @@ currentPage = {
 
         updateText("algorithm", algorithm);
 
+        updateText("pasaPaymentsMinimum", lastStats.config.pasaThreshold + " " + lastStats.config.symbol);
+        updateText("passwordExpireTime", getReadableTime(lastStats.config.passwordExpireTime || 3600));
+        updateText("paymentsMinimum", lastStats.config.defaultPaymentThreshold + " " + lastStats.config.symbol);
+        updateText("paymentsInterval", getReadableTime(lastStats.config.paymentsInterval));
+        updateText("blocksMaturityCount", lastStats.config.depth);
+
     }
 };
 
@@ -220,10 +281,12 @@ currentPage = {
  * Configuration generator
  **/
 
-$("#generateConf").click(function() {
+$("#configGenerator input, #configGenerator select").bind("keyup change", function() {
+
+    $("#configGenerator input").removeClass("is-invalid");
+
     // Mining Port
     var port = $("#gMiningPort").val();
-    updateTextClasses("examplePort", port);
 
     // Username
     var account = $("#gAccount").val().replace(/\s+/g, "").trim();
@@ -231,21 +294,56 @@ $("#generateConf").click(function() {
     var workerName = $("#gWorkerName").val().replace(/\s+/g, "").trim();
     var email = $("#gEmail").val().replace(/\s+/g, "").trim();
 
-    var login = (account ? account : "YOUR_ACCOUNT") + "." + (paymentID ? paymentID : "0");
+    paymentID = paymentID ? paymentID : "0";
+
+    var login = (account ? account : "YOUR_ACCOUNT") + "." + paymentID;
     if (workerName) login += "." + workerName;
     if (email) login += "/" + email;
 
-    updateTextClasses("exampleLogin", login);
-
-    var platform = $("input[name=gPlatform]:checked").val();
-    console.log(platform);
-    if (platform == "Windows") {
-        $("#gWindowsConfig").show();
-        $("#gLinuxConfig").hide();
+    // Validate
+    var hasError = false;
+    var pasaValid = true;
+    if(/^[0-9\-]+$/.test(account)) {
+        if((account.match(/-/g) || []).length == 1) {
+            var address_parts = account.split("-");
+            if(((address_parts[0]*101) % 89) + 10 != address_parts[1]) {
+                // checksum does not matche
+                pasaValid = false;
+            }
+        }
     } else {
-        $("#gWindowsConfig").hide();
-        $("#gLinuxConfig").show();
+        pasaValid = false;
     }
+    if(!pasaValid) {
+        hasError = true;
+        $("#gAccount").addClass("is-invalid");
+    }
+
+    if(!/^[0-9A-Fa-f]{16}$/.test(paymentID) && paymentID != "0") {
+        hasError = true;
+        $("#gPaymentID").addClass("is-invalid");
+    }
+
+    if(workerName.indexOf(" ") !== -1) {
+        hasError = true;
+        $("#gWorkerName").addClass("is-invalid");
+    }
+
+    if(email.indexOf(" ") !== -1) {
+        hasError = true;
+        $("#gEmail").addClass("is-invalid");
+    }
+
+    if(hasError) {
+        return;
+    }
+
+    updateTextClasses("examplePort", port);
+    updateTextClasses("exampleLogin", login);
+    updateTextClasses("exampleAccount", account);
+    updateTextClasses("examplePaymentId", paymentID);
+    updateTextClasses("exampleRigName", workerName);
+    updateTextClasses("exampleEmail", email);
 
 });
 </script>
