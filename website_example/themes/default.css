@@ -247,3 +247,24 @@ footer .container {
 .tab-pane th {
     border-top: 0;
 }
+
+@media screen and (max-width: 991px) {
+    .fix-line-height {
+	line-height: 20px;
+    }
+}
+
+
+.accountLabelButtons {
+    display:inline;
+}
+
+@media screen and (max-width: 575px) {
+    .accountLabelButtons {
+	display:block;
+    }
+}
+
+.modal {
+    -webkit-overflow-scrolling: touch;
+}
