@@ -92,7 +92,7 @@
 	"ports": [
 	    {
                 /* The port for your miners to connect to */
-		"port": "3333",
+		"port": "4443",
 
                 /* The starting or fixed difficulty for this port */
 		"diff": 0.00000010,
@@ -124,7 +124,7 @@
 		}
 	    },
 	    {
-		"port": "3334",
+		"port": "4444",
 		"diff": 0.00000050,
 		"desc": "Variable difficulty (700 H/s)",
                 "hidden": false,
@@ -137,7 +137,7 @@
 		}
 	    },
 	    {
-		"port": "3335",
+		"port": "4445",
 		"diff": 0.00000100,
 		"desc": "Variable difficulty (1500 H/s or greater)",
                 "hidden": false,
@@ -150,19 +150,19 @@
 		}
 	    },
 	    {
-		"port": "3336",
+		"port": "4446",
 		"diff": 0.00000010,
 		"desc": "Fixed difficulty (150 H/s)",
                 "hidden": true
 	    },
 	    {
-		"port": "3337",
+		"port": "4447",
 		"diff": 0.00000050,
 		"desc": "Fixed difficulty (500 H/s)",
                 "hidden": true
 	    },
 	    {
-		"port": "3338",
+		"port": "4448",
 		"diff": 0.00000100,
 		"desc": "Fixed difficulty (1500 H/s or greater)",
                 "hidden": true
@@ -322,7 +322,7 @@
         "bindIp": "0.0.0.0",
 
         /* Port to serve API on */
-        "port": 8117,
+        "port": 8118,
 
         /* Number of blocks to send at a time */
         "blocks": 30,
