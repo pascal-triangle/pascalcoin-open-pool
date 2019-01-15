@@ -179,7 +179,7 @@
 	    "enabled": true,
 
             /* How many seconds to ban worker for*/
-	    "time": 600,
+	    "time": 3600,
 
             /* What percent of invalid shares triggers ban */
 	    "invalidPercent": 50,
