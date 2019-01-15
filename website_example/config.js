@@ -1,4 +1,4 @@
-var api = "https://tnpool.pascalpool.org/api";
+var api = "https://pool.pascalpool.org/api";
 
 var email = "support@poolhost.com";
 
