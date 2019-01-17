@@ -261,7 +261,7 @@ currentPage = {
                 $portChild.find(".miningPort").text(portData.port);
                 $portChild.find(".miningPortDiff").text(portData.diff.toFixed(9));
                 $portChild.find(".miningPortDesc").text(portData.desc);
-                $portChild.find(".miningPortUsers").text(portData.users || 0);
+                $portChild.find(".miningPortUsers").text(Math.max(0, portData.users || 0));
                 $miningPortChildren.push($portChild);
 		$miningPortOptions.push('<option value="'+portData.port+'">'+portData.port+' &ndash; '+portData.desc+'</option>');
             }
