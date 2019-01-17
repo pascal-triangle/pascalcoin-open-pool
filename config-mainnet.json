@@ -252,6 +252,21 @@
             "account": "86646-64",
             "name": "Poloniex",
             "requirePaymentID": true
+        },
+        {
+            "account": "349491-44",
+            "name": "Tokok",
+            "requirePaymentID": true
+        },
+        {
+            "account": "144066-66",
+            "name": "Myqbtc",
+            "requirePaymentID": true
+        },
+        {
+            "account": "632774-85",
+            "name": "Chaoex",
+            "requirePaymentID": true
         }
     ],
 
