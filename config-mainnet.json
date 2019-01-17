@@ -95,13 +95,13 @@
 		"port": "3333",
 
                 /* The starting or fixed difficulty for this port */
-		"diff": 0.00000100,
+		"diff": 0.00000350,
 
                 /* Short description for the frontend */
-		"desc": "Variable difficulty (150 H/s)",
+		"desc": "Variable difficulty (500 H/s)",
 
                 /* Hide this port from the frontend */
-                "hidden": false,
+		"hidden": false,
 
                 /* Variable difficulty is a feature that will automatically adjust difficulty for
                  * individual miners based on their hashrate in order to lower networking overhead
@@ -111,7 +111,7 @@
 		    "minDiff": 0.00000100,
 
                     /* Maximum difficulty */
-		    "maxDiff": 0.00010000,
+		    "maxDiff": 0.00100000,
 
                     /* Try to get 1 share per this many seconds */
 		    "targetTime": 30,
@@ -125,12 +125,12 @@
 	    },
 	    {
 		"port": "3334",
-		"diff": 0.00000500,
-		"desc": "Variable difficulty (700 H/s)",
-                "hidden": false,
+		"diff": 0.00000700,
+		"desc": "Variable difficulty (1000 H/s)",
+		"hidden": false,
 		"varDiff": {
 		    "minDiff": 0.00000100,
-		    "maxDiff": 0.00010000,
+		    "maxDiff": 0.00100000,
 		    "targetTime": 30,
 		    "retargetTime": 90,
 		    "variancePercent": 30
@@ -138,12 +138,12 @@
 	    },
 	    {
 		"port": "3335",
-		"diff": 0.00001000,
-		"desc": "Variable difficulty (1500 H/s or greater)",
-                "hidden": false,
+		"diff": 0.00001750,
+		"desc": "Variable difficulty (2500 H/s)",
+		"hidden": false,
 		"varDiff": {
 		    "minDiff": 0.00000100,
-		    "maxDiff": 0.00010000,
+		    "maxDiff": 0.00100000,
 		    "targetTime": 30,
 		    "retargetTime": 90,
 		    "variancePercent": 30
@@ -151,21 +151,48 @@
 	    },
 	    {
 		"port": "3336",
-		"diff": 0.00000100,
-		"desc": "Fixed difficulty (150 H/s)",
-                "hidden": true
+		"diff": 0.00003500,
+		"desc": "Variable difficulty (5000 H/s)",
+		"hidden": false,
+		"varDiff": {
+		    "minDiff": 0.00000100,
+		    "maxDiff": 0.00100000,
+		    "targetTime": 30,
+		    "retargetTime": 90,
+		    "variancePercent": 30
+		}
 	    },
 	    {
 		"port": "3337",
-		"diff": 0.00000500,
-		"desc": "Fixed difficulty (500 H/s)",
-                "hidden": true
+		"diff": 0.00005250,
+		"desc": "Variable difficulty (7500 H/s)",
+		"hidden": false,
+		"varDiff": {
+		    "minDiff": 0.00000100,
+		    "maxDiff": 0.00100000,
+		    "targetTime": 30,
+		    "retargetTime": 90,
+		    "variancePercent": 30
+		}
 	    },
 	    {
 		"port": "3338",
+		"diff": 0.00007000,
+		"desc": "Variable difficulty (10000 H/s or greater)",
+		"hidden": false,
+		"varDiff": {
+		    "minDiff": 0.00000100,
+		    "maxDiff": 0.00100000,
+		    "targetTime": 30,
+		    "retargetTime": 90,
+		    "variancePercent": 30
+		}
+	    },
+	    {
+		"port": "3339",
 		"diff": 0.00001000,
-		"desc": "Fixed difficulty (1500 H/s or greater)",
-                "hidden": true
+		"desc": "Fixed difficulty (1500 H/s)",
+		"hidden": true
 	    }
 	],
 
