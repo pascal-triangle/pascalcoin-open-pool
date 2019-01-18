@@ -166,7 +166,10 @@ function generateChart() {
     var borderwidth = 1;
 
     var graphType = "blocks";
-    var ctx = document.getElementById("blocksChartObj").getContext("2d");
+
+    if($chart.length === 0) return;
+
+    var ctx = $chart.get(0).getContext("2d");
     var chartConfig = {
         type: "bar",
         data: {

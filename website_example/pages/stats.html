@@ -10,7 +10,7 @@
   <div class="col-12 poolChart">
     <h3 class="text-center"><span tkey="poolhashrate">Pool Hashrate</span></h3>
     <div class="chart">
-      <canvas height="100" id="chart_hashrate"></canvas>
+      <canvas height="100" id="chart_poolhashrate"></canvas>
     </div>
   </div>
 
@@ -82,7 +82,7 @@ function createCharts() {
     var data = lastStats.charts;
 
     var graphData = {
-        hashrate: getGraphData(data.hashrate),
+        poolhashrate: getGraphData(data.hashrate),
         nethash: getGraphData(data.nethash),
         miners: getGraphData(data.miners),
         workers: getGraphData(data.workers),
@@ -98,7 +98,9 @@ function createCharts() {
             var bordercolor = "#c47b22";
             var borderwidth = 1;
 
-            var ctx = document.getElementById("chart_"+graphType).getContext("2d");
+            if($chart.length === 0) continue;
+
+            var ctx = $chart.get(0).getContext("2d");
             var chartConfig = {
                 type: "line",
                 data: {

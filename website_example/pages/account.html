@@ -552,7 +552,7 @@ function fetchAddressStats(longpoll) {
 		}
 		updateText("yourInvalidPct", (Math.round(invalidShare_pct * 1000) / 1000)+"%");
 	    }
-	    
+
 
             renderPayments(data.payments);
             renderPasaPayments(data.pasaPayments);
@@ -724,7 +724,9 @@ function createCharts() {
             var bordercolor = "#c47b22";
             var borderwidth = 1;
 
-            var ctx = document.getElementById("chart_"+graphType).getContext("2d");
+            if($chart.length === 0) continue;
+
+            var ctx = $chart.get(0).getContext("2d");
             var chartConfig = {
                 type: "line",
                 data: {
