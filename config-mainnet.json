@@ -227,7 +227,7 @@
         "interval": 600,
 
         /* Default payment threshold */
-        "defaultPayment": 10,
+        "defaultPayment": 1,
 
         /* Minimum payment threshold */
         "minPayment": 0.5,
