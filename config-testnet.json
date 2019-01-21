@@ -364,38 +364,38 @@
                 /* How often to get current value */
                 "updateInterval": 60,
                 /* Chart step interval calculated as average of all updated values */
-                "stepInterval": 60,
+                "stepInterval": 900,
                 /* Max time to store charts, 604800 = 1 week */
                 "maximumPeriod": 604800
             },
             "miners": {
                 "enabled": true,
                 "updateInterval": 60,
-                "stepInterval": 60,
+                "stepInterval": 900,
                 "maximumPeriod": 604800
             },
             "workers": {
                 "enabled": true,
                 "updateInterval": 60,
-                "stepInterval": 60,
+                "stepInterval": 900,
                 "maximumPeriod": 604800
             },
             "nethash": {
                 "enabled": true,
                 "updateInterval": 60,
-                "stepInterval": 60,
+                "stepInterval": 900,
                 "maximumPeriod": 604800
             },
             "priceUSD": {
                 "enabled": true,
                 "updateInterval": 300,
-                "stepInterval": 300,
+                "stepInterval": 1800,
                 "maximumPeriod": 604800
             },
             "priceBTC": {
                 "enabled": true,
                 "updateInterval": 300,
-                "stepInterval": 300,
+                "stepInterval": 1800,
                 "maximumPeriod": 604800
             },
             "blocks": {
@@ -409,13 +409,13 @@
             "hashrate": {
                 "enabled": true,
                 "updateInterval": 60,
-                "stepInterval": 60,
+                "stepInterval": 900,
                 "maximumPeriod": 604800
             },
             "worker_hashrate": {
                 "enabled": true,
                 "updateInterval": 60,
-                "stepInterval": 60,
+                "stepInterval": 900,
                 "maximumPeriod": 604800
             },
             "payments": {

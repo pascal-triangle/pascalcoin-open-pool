@@ -301,7 +301,7 @@
   </div>
 
   <div class="col-sm-6 userChart">
-    <h4 class="text-center"><span tkey="hashesPerHour">Hashes per hour (last 7 days)</span></h4>
+    <h4 class="text-center"><span tkey="hashesPerHour">Hashes per hour (last 24 hours)</span></h4>
     <div class="chart">
       <canvas height="100" id="chart_hashes"></canvas>
     </div>
@@ -780,10 +780,13 @@ function createCharts() {
                     }
                 }
             };
-
             switch(graphType) {
-            case "payments":
             case "hashes":
+                chartConfig.type = "bar";
+                chartConfig.data.labels = graphData[graphType].names.slice(-24)
+                chartConfig.data.datasets[0].data = graphData[graphType].values.slice(-24)
+                break;
+            case "payments":
                 chartConfig.type = "bar";
                 break;
             case "hashrate":
