@@ -247,8 +247,8 @@ updateText("networkDifficulty", formatNumber(lastStats.network.difficulty.toStri
         updateText("poolMiners", lastStats.pool.miners.toString());
         updateText("poolWorkers", lastStats.pool.workers.toString());
 
-        var totalFee = lastStats.config.fee;
-        updateText("poolFee", (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? "100" : "0")) + "%");
+        var totalFee = lastStats.config.fee + lastStats.config.devFee;
+        updateText("poolFee", totalFee + "%");
 
         updateText("paymentsInterval", getReadableTime(lastStats.config.paymentsInterval));
         updateText("paymentsMinimum", getReadableCoins(lastStats.config.minPaymentThreshold));

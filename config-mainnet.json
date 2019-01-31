@@ -265,8 +265,13 @@
         /* Pool fee as a percentage, i.e. 1 is 1% */
         "poolFee": 0,
 
+        /* Pool development fee as a percentage, i.e. 0.5 is 0.5%
+         * Please consider leaving this fee in to support ongoing
+         * development of this open source pool. */
+        "devFee": 0.5,
+
         /* Network fee in PASC, do not change this */
-        "devFee": 10.0000
+        "networkFee": 10.0000
     },
 
     /**
