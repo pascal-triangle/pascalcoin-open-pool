@@ -11,6 +11,7 @@
     <td class="col5" data-sort="{{this.wallet.balance}}">{{this.readableBalance}}</td>
     <td class="col6" data-sort="{{this.wallet.paid}}">{{this.readablePaid}}</td>
     <td class="col7" data-sort="{{this.wallet.lastShare}}">{{this.timeago}}</td>
+    <td class="col8" data-sort="{{this.wallet.lastShare}}">{{this.publicKey}}</td>
   </tr>
   {{/each}}
 </script>
@@ -28,6 +29,7 @@
           <th class="col5 sort">Balance <i class="fa fa-sort"></i></th>
           <th class="col6 sort">Paid <i class="fa fa-sort"></i></th>
           <th class="col7 sort">Last share <i class="fa fa-sort"></i></th>
+          <th class="col8 sort">Public Key <i class="fa fa-sort"></i></th>
         </tr>
       </thead>
       <tbody id="template">
@@ -56,7 +58,8 @@ function parseUsers(wallets) {
                 readableBalance: getReadableCoins(userData.balance, true, true),
                 readablePaid: getReadableCoins(userData.paid, true, true),
                 readableHashrate: getReadableHashRateString(userData.hashrate) + '/s',
-                readableHashes: getReadableHashRateString(userData.hashes)
+                readableHashes: getReadableHashRateString(userData.hashes),
+                publicKey: userData.publicKey
             });
 	    totalUsers++;
         }
