@@ -131,6 +131,7 @@
 
   </div>
 
+  <!--
   <h5 class="mt-3">Config for rhminer (Windows)</h5>
   <p>
     <code>
@@ -151,10 +152,11 @@
       done
     </code>
   </p>
+  -->
   <h5 class="mt-3">Config for nanominer (Windows &amp; Linux)</h5>
   <p>
     <code>
-      [RandomHash]<br/>
+      [RandomHash2]<br/>
       wallet = <span class="exampleAccount">ACCOUNT</span><br/>
       paymentId = <span class="examplePaymentId">0</span><br/>
       rigName = <span class="exampleRigName">WORKER</span><br/>
@@ -170,12 +172,15 @@
 
 <div class="card p-3 mb-3">
   <h5>Which mining software can I use?</h5>
+<!--
   <p>This pool is compatible with both <a href="https://github.com/polyminer1/rhminer/releases" target="_blank">rhminer</a> and <a href="https://github.com/nanopool/nanominer/releases" target="_blank">nanominer</a>. The open sourced rhminer is recommended as its 1% fee supports the development of PascalCoin. The closed sourced nanominer has a 3% to 5% fee and does not support development. Please choose your miner software carefully.</p>
+-->
+  <p>Please use <a href="https://github.com/nanopool/nanominer/releases" target="_blank">Nanominer</a> to mine to this pool. Alternatively you can use the built in miner that comes with v5 release of PascalCoin, but it is not as fast.</p>
 </div>
 
 <div class="card p-3 mb-3">
   <h5>Should I use my CPU or GPU to mine?</h5>
-  <p>PascalCoin uses the RandomHash algo which is most effective with CPUs. If you have an nVidia GPU  you can mine on it with rhminer, but even a 1080ti will not give as much hashrate as a core i3. It is not recommended to mine with your GPU.</p>
+  <p>PascalCoin uses the RandomHash algo which is most effective with CPUs. There is no current software that supports mining PascalCoin with GPUs.</p>
 </div>
 
 <div class="card p-3 mb-3">

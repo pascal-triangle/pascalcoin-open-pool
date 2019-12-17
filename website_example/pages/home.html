@@ -1,3 +1,18 @@
+<div id="accountMessages">
+  <div class="alert alert-success alert-pubkey">
+    PascalCoin has forked to v5! You must mine to this pool with nanominer and specifically set RandomHash2 as the algorithm.
+  </div>
+</div>
+
+<div>
+  <strong>Example nanominer config:</strong>
+  <pre>[RandomHash2]
+wallet = 573198
+coin = PASC
+rigName = speed_test
+pool1 = pool.pascalpool.org:3333</pre>
+</div>
+
 <!-- Statistics -->
 <div id="poolStats" class="row">
 
@@ -289,6 +304,7 @@ function updateTopMiners() {
             if (!data) return;
             $("#top_miners_rows").empty();
             for (var i=0; i<data.length; ++i) {
+	       if(data[i].hashrate > 0)
                 $( "#top_miners_rows" ).append("<tr>" + getMinerCells(i+1, data[i]) + "</tr>");
             }
         }
